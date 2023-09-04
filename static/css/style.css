@@ -1237,6 +1237,10 @@ input:checked + .toggle-bg {
   inset: 0px;
 }
 
+.inset-14 {
+  inset: 3.5rem;
+}
+
 .bottom-0 {
   bottom: 0px;
 }
@@ -1255,6 +1259,22 @@ input:checked + .toggle-bg {
 
 .top-0 {
   top: 0px;
+}
+
+.bottom-10 {
+  bottom: 2.5rem;
+}
+
+.left-10 {
+  left: 2.5rem;
+}
+
+.bottom-5 {
+  bottom: 1.25rem;
+}
+
+.left-5 {
+  left: 1.25rem;
 }
 
 .z-10 {
@@ -1875,6 +1895,16 @@ input:checked + .toggle-bg {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .pl-3 {
