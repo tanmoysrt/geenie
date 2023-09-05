@@ -4,4 +4,4 @@ Flask-SQLAlchemy==3.0.5
 PyJWT==2.8.0
 python-dotenv==0.21.1
 SQLAlchemy==2.0.20
-Werkzeug==2.3.7
+Werkzeug==2.2.3
