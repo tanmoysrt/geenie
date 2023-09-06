@@ -1,20 +1,23 @@
+from flask import redirect
 from app import app, db
 from middleware import login_required
 import os
 
 # Database migrations
-from models import User
+from models import User, Book
 
 with app.app_context():
     db.create_all()
 
 # Import routes
 import routes.pages.auth
+import routes.pages.books
 
+# Default route / to /books
 @app.route("/")
 @login_required
 def index():
-    return "Hello world!"
+    return redirect("/books")
 
 # Create default user
 with app.app_context():
