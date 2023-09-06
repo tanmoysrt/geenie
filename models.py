@@ -25,6 +25,7 @@ class User(db.Model):
 
 class Book(db.Model):
   id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+  cover_image = db.Column(db.String(80), nullable=False)
   title = db.Column(db.String(80), nullable=False)
   authors = db.Column(db.String(80), nullable=False)
   publisher = db.Column(db.String(80), nullable=False)
