@@ -13,7 +13,6 @@ def login_required(func):
             # Redirect to login page if token is not present
             return redirect("/login")
         user_id = helpers.verify_jwt(token)
-        print(user_id)
         if not user_id:
             # Redirect to login page if token is not valid
             return redirect("/login")

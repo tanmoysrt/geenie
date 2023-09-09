@@ -1,10 +1,20 @@
 {% extends "base.html" %} {% block title %} Add New Book | {{ super() }} {% endblock %} {% block content %}
 <div class="flex justify-center p-4">
-  <form class="flex-grow-1 flex max-w-xl flex-auto flex-col">
+  <form class="flex-grow-1 flex max-w-xl flex-auto flex-col" method="post" enctype="multipart/form-data">
     <!-- Add new book title -->
     <div class="mb-6 text-center">
       <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Add new book</h1>
     </div>
+    <!-- Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %}
+    <div class="mb-6">
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }}" role="alert">
+        <span class="block sm:inline">{{ message }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %} {% endwith %}
     <!-- Title -->
     <div class="mb-6">
       <label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Title</label>
@@ -84,6 +94,7 @@
         type="file"
         id="cover_image"
         name="cover_image"
+        accept="image/*"
         class="block w-full rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-900 outline-none focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
         required
       />

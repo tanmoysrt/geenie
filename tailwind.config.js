@@ -5,6 +5,12 @@ module.exports = {
     "./static/js/**/*.js",
     "./node_modules/flowbite/**/*.js",
   ],
+  safelist: [
+    "alert",
+    "alert-success",
+    "alert-danger",
+    "alert-warning",
+  ],
   theme: {
     extend: {
       fontFamily: {

@@ -3,11 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width= , initial-scale=1.0" />
-    <title>
-      {% block title %}
-      Geenie - Library Management System
-      {% endblock %}
-    </title>
+    <title>{% block title %} Geenie - Library Management System {% endblock %}</title>
     <link rel="stylesheet" href="/static/css/style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
     <script src="https://kit.fontawesome.com/3a3ee716b6.js" crossorigin="anonymous"></script>
@@ -80,5 +76,12 @@
     <!-- Content -->
     {% block content %}{% endblock %}
     <!-- END Content -->
+
+    <!-- Avoid resubmission of POST requests on page reload -->
+    <script>
+      if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+      }
+    </script>
   </body>
 </html>

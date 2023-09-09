@@ -1,4 +1,6 @@
 import jwt
+import os
+import uuid
 
 # Generate JWT token
 def generate_jwt(user_id):
@@ -19,3 +21,8 @@ def verify_jwt(jwt_token):
     except jwt.InvalidTokenError:
         # Token is invalid
         return None
+
+# Generate a unique filename with actual extension
+def generate_unique_filename(filename):
+    filename, extension = os.path.splitext(filename)
+    return str(uuid.uuid4()) + extension
