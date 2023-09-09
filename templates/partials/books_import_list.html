@@ -1,23 +1,26 @@
+{% for book in books %}
 <!-- Card -->
-<div class="m-2 w-full rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800 lg:w-1/5" id="books_list">
-  <a href="#">
-    <img class="rounded-t-lg object-cover" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="" />
-  </a>
-  <div class="p-4">
-    <div class="mb-4">
-      <a href="#" class="text-lg font-bold tracking-tight text-gray-900 dark:text-white">Physics Book Class 8</a>
-      <br />
-      <a class="font-normal text-gray-700 dark:text-gray-400">By Debobroto Sarkar</a><br />
-      <a class="font-normal text-gray-700 dark:text-gray-400">ISBN: 9348939642</a><br />
+<div class="p-2 w-full lg:w-1/5">
+  <div class="w-full rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800">
+    <div class="h-[200px] max-h-[200px] min-w-full overflow-hidden">
+      <img class="h-full w-full rounded-t-lg object-cover" src="{{ book.cover_image }}" alt="" />
     </div>
-    <button
-      class="mb-2 w-full rounded-lg border-2 border-gray-200 bg-white py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 lg:text-base"
-    >
-      Import Book
-    </button>
-    <button class="w-full rounded-lg bg-blue-700 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 lg:text-base">
-      View Details
-    </button>
+    <div class="p-4">
+      <div class="mb-4">
+        <a href="#" class="block w-full overflow-hidden text-clip whitespace-nowrap text-lg font-bold tracking-tight text-gray-900 dark:text-white">{{ book.title }}</a>
+        <a class="block w-full overflow-hidden text-clip whitespace-nowrap font-normal text-gray-700 dark:text-gray-400">By {{ book.authors }}</a>
+        <a class="font-normal text-gray-700 dark:text-gray-400">ISBN: {{ book.isbn }}</a>
+      </div>
+      <button
+        class="mb-2 w-full rounded-lg border-2 border-gray-200 bg-white py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 lg:text-base"
+      >
+        Import Book
+      </button>
+      <button class="w-full rounded-lg bg-blue-700 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 lg:text-base">
+        View Details
+      </button>
+    </div>
   </div>
 </div>
 <!-- END card -->
+{% endfor %}  

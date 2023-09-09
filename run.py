@@ -1,4 +1,4 @@
-from flask import redirect
+from flask import g, redirect, request
 from app import app, db
 from middleware import login_required
 import os
@@ -8,6 +8,14 @@ from models import User, Book
 
 with app.app_context():
     db.create_all()
+
+# Register is_ajax middleware
+@app.before_request
+def ajax_request_check():
+    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+        request.is_ajax = True
+    else:
+        request.is_ajax = False
 
 # Import routes
 import routes.pages.auth

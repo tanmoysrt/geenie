@@ -6,6 +6,7 @@ from sqlalchemy import text
 from sqlalchemy.exc import IntegrityError
 import helpers
 from middleware import login_required
+from frappe_book import FrappeBook
 
 
 # Fetch all books from database
@@ -13,7 +14,7 @@ from middleware import login_required
 @app.route("/books", methods=["GET"])
 @login_required
 def books_index():
-    books = db.session.execute(text("SELECT * FROM book")).fetchall()
+    books = Book.query.all()
     return render_template("books/show.html", books=books)
 
 # Fetch a single book details from database
@@ -44,7 +45,8 @@ def new_book():
 
             # Store the image in /static/media folder with a unique name with actual extension
             filename = helpers.generate_unique_filename(cover_image.filename)
-            cover_image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            cover_image.save(os.path.join(
+                app.config['UPLOAD_FOLDER'], filename))
 
             # Insert book details into database
             book = Book(
@@ -74,7 +76,22 @@ def new_book():
 # POST /books/import
 
 
-@app.route("/books/import", methods=["GET", "POST"])
+@app.get("/books/import")
 @login_required
 def import_book():
-    return render_template("books/import.html")
+    page_no = 1
+    frappeBook = FrappeBook()
+    books = []
+
+    # If request is ajax, then fetch the page number from query string
+    if request.is_ajax:
+        page_no = int(request.args.get("page", 1))
+
+    books = frappeBook.get_books(page_no=page_no)
+
+    # If request is ajax, then return the partial html
+    if request.is_ajax:
+        return render_template("partials/books_import_list.html", books=books)
+
+    # If request is not ajax, then render the full html
+    return render_template("books/import.html", books=books)

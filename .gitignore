@@ -7,3 +7,4 @@ instance
 *.pyc
 static/media/*
 !static/media/.keep
+!static/media/no-image.png
