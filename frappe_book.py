@@ -12,7 +12,7 @@ class FrappeBook:
     return cls.__instance
 
 
-  def get_books(self, page_no:int=1) -> list[Book]:
+  def get_books(self, page_no:int=1):
     response = requests.get(self.endpoint, params={"page": page_no})
     if response.status_code == 200:
         res = response.json()
@@ -20,7 +20,7 @@ class FrappeBook:
     return []
   
   # Private methods
-  def __books_from_json(self, books_json:list) -> list[Book]:
+  def __books_from_json(self, books_json:list):
     books = []
     for book_json in books_json:
       tmp = Book(
