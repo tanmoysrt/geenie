@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block title %} Import from Frappe | {{ super() }} {% endblock %} {% block content %}
 <div class="p-4">
   <!-- Search bar -->
-  <form method="get" class="border-dark-subtle flex w-full rounded-full border-2 border-solid border-blue-700 p-1">
+  <form method="get" class="border-dark-subtle flex w-full rounded-full border-2 border-solid border-blue-700 p-1" id="search-form">
     <!-- Dropdown -->
     <select class="block rounded-full border-0 px-4 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-700 sm:leading-6 lg:text-base" name="type" id="search-type">
       <!-- ... -->
@@ -16,13 +16,16 @@
       Search
     </button>
   </form>
+
   <!-- Mobile search button -->
   <button
     type="button"
+    onclick="$('#search-form').submit()"
     class="mt-2 block h-10 w-full rounded-full bg-blue-700 px-8 font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-300 dark:bg-blue-700 dark:hover:bg-blue-700 dark:focus:ring-blue-800 lg:hidden"
   >
     <i class="fa-solid fa-magnifying-glass mr-2"></i>Search Books
   </button>
+
   <!-- END Search bar -->
 
   <!-- Books -->
@@ -44,7 +47,7 @@
   </div>
 
   <!-- No more books found  -->
-  <div class="my-4 flex flex-row items-center justify-center" id="no-more-books">
+  <div class="my-4 flex flex-row items-center justify-center" id="no-more-books" style="display: none;">
     <div class="text-gray-500 dark:text-gray-400">No more books found.</div>
   </div>
 
@@ -67,7 +70,6 @@
   let searchQuery = "";
   let noMoreBooksFound = false;
 
-  $("#no-more-books").hide();
   // Scroll to top on page load
   window.addEventListener("beforeunload", function () {
     $(window).scrollTop(0);
@@ -88,7 +90,7 @@
   window.addEventListener("touchmove", onScroll);
 
   function onScroll() {
-    if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+    if ($(window).scrollTop() + $(window).outerHeight() >= $(document).outerHeight() - 20) {
       fetchBooks();
     }
   }
@@ -103,6 +105,7 @@
     }
     alreadyFetchingBooks = true;
     $("#loading-books-spinner").show();
+
     document.documentElement.scrollTop = document.documentElement.scrollHeight - document.documentElement.clientHeight;
 
     // send ajax request
