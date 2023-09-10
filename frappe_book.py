@@ -12,8 +12,13 @@ class FrappeBook:
     return cls.__instance
 
 
-  def get_books(self, page_no:int=1):
-    response = requests.get(self.endpoint, params={"page": page_no})
+  def get_books(self, page_no:int=1, search_type:str="", search_query:str=""):
+    params = {
+      "page": page_no,
+    }
+    if search_type != "" and search_query != "":
+      params[search_type] = search_query
+    response = requests.get(self.endpoint, params=params)
     if response.status_code == 200:
         res = response.json()
         return self.__books_from_json(res["message"])

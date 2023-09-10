@@ -79,18 +79,19 @@ def new_book():
 @app.get("/books/import")
 @login_required
 def import_book():
-    page_no = 1
     frappeBook = FrappeBook()
     books = []
+    search_type = request.args.get("type", "")
+    search_query = request.args.get("query", "")
 
     # If request is ajax, then fetch the page number from query string
     if request.is_ajax:
         page_no = int(request.args.get("page", 1))
-
-    books = frappeBook.get_books(page_no=page_no)
-
-    # If request is ajax, then return the partial html
-    if request.is_ajax:
+        books = frappeBook.get_books(page_no=page_no, search_type=search_type,search_query=search_query)
+        # if books is empty, then return 204 status code
+        if len(books) == 0:
+            return "", 204
+        # return the partial html
         return render_template("partials/books_import_list.html", books=books)
 
     # If request is not ajax, then render the full html
