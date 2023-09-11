@@ -1,6 +1,8 @@
 import jwt
 import os
 import uuid
+import requests
+from app import app
 
 # Generate JWT token
 def generate_jwt(user_id):
@@ -26,3 +28,12 @@ def verify_jwt(jwt_token):
 def generate_unique_filename(filename):
     filename, extension = os.path.splitext(filename)
     return str(uuid.uuid4()) + extension
+
+# Download image from url and save it in /static/media folder
+def download_image(url, filename):
+    response = requests.get(url)
+    if response.status_code == 200:
+        with open(os.path.join(app.config['UPLOAD_FOLDER'], filename), 'wb') as f:
+            f.write(response.content)
+    else:
+        raise Exception("Failed to download image")

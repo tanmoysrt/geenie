@@ -209,6 +209,51 @@
     function hideBookDetailsModal() {
       bookDetailsModal.hide();
     }
+
+    // Import book
+    function importBook(title, isbn, authors, publisher, pages, img_url) {
+      // Ask for no of copies
+      const copies = prompt("How many copies do you want to import?", 1);
+      if (copies == null) {
+        return;
+      }
+      // Send ajax request
+      $.ajax({
+        url: "/books/import",
+        type: "POST",
+        data: {
+          title: title,
+          isbn_code: isbn,
+          authors: authors,
+          publisher: publisher,
+          pages: pages,
+          img_url: img_url,
+          copies: copies,
+        },
+        withCredentials: true,
+        success: function (data, textStatus, xhr) {
+          if (xhr.status == 200) {
+            Swal.fire({
+              icon: "success",
+              title: data.message,
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: data.message || "Something went wrong!",
+            });
+          }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: xhr.responseJSON.message || "Something went wrong!",
+          });
+        },
+      });
+    }
   </script>
   {% endblock %}
 </div>

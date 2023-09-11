@@ -23,8 +23,6 @@ def books_index():
 # Add new book
 # GET /books/new
 # POST /books/new
-
-
 @app.route("/books/new", methods=["GET", "POST"])
 @login_required
 def new_book():
@@ -73,9 +71,6 @@ def new_book():
 
 # Import book from Frappe API
 # GET /books/import
-# POST /books/import
-
-
 @app.get("/books/import")
 @login_required
 def import_book():
