@@ -32,5 +32,11 @@
 
   <!-- Books -->
   <div class="mt-5 flex flex-wrap items-center">{% include "partials/books_list.html" %}</div>
+
+  <!-- Book details modal -->
+  <div id="book_details_model" class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full overflow-y-auto overflow-x-hidden p-4 md:inset-0"></div>
 </div>
+{% endblock %} {% block javascript %}
+<!-- Script -->
+<script src="/static/js/book_show.js"></script>
 {% endblock %}

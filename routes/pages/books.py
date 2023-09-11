@@ -17,9 +17,6 @@ def books_index():
     books = Book.query.all()
     return render_template("books/show.html", books=books)
 
-# Fetch a single book details from database
-# GET /books/:id
-
 # Add new book
 # GET /books/new
 # POST /books/new
@@ -91,3 +88,11 @@ def import_book():
 
     # If request is not ajax, then render the full html
     return render_template("books/import.html", books=books)
+
+# Fetch a single book details from database
+# GET /books/:id
+@app.route("/books/<int:id>", methods=["GET"])
+@login_required
+def show_book(id):
+    book = Book.query.get(id)
+    return render_template("partials/books_details.html", book=book)
