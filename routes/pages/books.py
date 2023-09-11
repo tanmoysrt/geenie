@@ -14,7 +14,13 @@ from frappe_book import FrappeBook
 @app.route("/books", methods=["GET"])
 @login_required
 def books_index():
-    books = Book.query.all()
+    books = []
+    search_type = request.args.get("type", "")
+    search_query = request.args.get("query", "")
+    if search_type and search_query:
+        books = Book.query.filter(text(search_type + " LIKE '%" + search_query + "%'")).all()
+    else:
+        books = Book.query.all()
     return render_template("books/show.html", books=books)
 
 # Add new book
