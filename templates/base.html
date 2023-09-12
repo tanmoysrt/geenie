@@ -41,25 +41,13 @@
               <a href="/books" class="{% if request.path == '/books' %} nav-link-active {% else %} nav-link-inactive {% endif %}" aria-current="page">Books</a>
             </li>
             <li>
-              <a
-                href="/transactions"
-                class="{% if request.path == '/transactions' %} nav-link-active {% else %} nav-link-inactive {% endif %}"
-                >Transactions</a
-              >
+              <a href="/transactions" class="{% if request.path == '/transactions' %} nav-link-active {% else %} nav-link-inactive {% endif %}">Transactions</a>
             </li>
             <li>
-              <a
-                href="/members"
-                class="{% if request.path == '/members' %} nav-link-active {% else %} nav-link-inactive {% endif %}"
-                >Members</a
-              >
+              <a href="/members" class="{% if request.path == '/members' %} nav-link-active {% else %} nav-link-inactive {% endif %}">Members</a>
             </li>
             <li>
-              <a
-                href="/reports"
-                class="{% if request.path == '/reports' %} nav-link-active {% else %} nav-link-inactive {% endif %}"
-                >Reports</a
-              >
+              <a href="/reports" class="{% if request.path == '/reports' %} nav-link-active {% else %} nav-link-inactive {% endif %}">Reports</a>
             </li>
           </ul>
         </div>
@@ -69,6 +57,16 @@
     <!-- Content -->
     {% block content %}{% endblock %}
     <!-- END Content -->
+
+    <!-- Scroll to top button -->
+    <button
+      type="button"
+      class="fixed bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-md bg-blue-700 font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-300 dark:bg-blue-700 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+    >
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+    <!-- END Scroll to top button -->
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>

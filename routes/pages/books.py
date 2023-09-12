@@ -102,3 +102,60 @@ def import_book():
 def show_book(id):
     book = Book.query.get(id)
     return render_template("partials/books_details.html", book=book)
+
+# Update a book
+# GET /books/<id>/edit
+# POST /books/<id>/edit
+@app.route("/books/<int:id>/edit", methods=["GET", "POST"])
+@login_required
+def update_book(id):
+    book = Book.query.get(id)
+    if request.method == "POST":
+        try:
+            title = request.form["title"]
+            authors = request.form["authors"]
+            isbn_code = request.form["isbn_code"]
+            publisher = request.form["publisher"]
+            num_pages = int(request.form["num_pages"])
+            total_copies = int(request.form.get("total_copies", 0))
+            cover_image = request.files["cover_image"]
+
+            # Validate form data
+            if not title or not authors or not isbn_code or not publisher or not num_pages:
+                flash("All fields are required", "danger")
+                return render_template("books/edit.html", book=book)
+            
+            # Issued copies should not be greater than total copies
+            
+            # total copies should be greater than or equal to available copies
+            if total_copies < (book.total_copies - book.available_copies):
+                flash("Total copies can't be lesser than total issue books", "danger")
+                return render_template("books/edit.html", book=book)
+
+            # Store the image in /static/media folder with a unique name with actual extension
+            if cover_image and cover_image.filename != "":
+                filename = helpers.generate_unique_filename(cover_image.filename)
+                cover_image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            else:
+                filename = book.cover_image
+
+            # Calculate available copies
+            available_copies = total_copies - (book.total_copies - book.available_copies)
+
+            # Update book details into database
+            book.title = title
+            book.authors = authors
+            book.isbn = isbn_code
+            book.publisher = publisher
+            book.num_pages = num_pages
+            book.total_copies = total_copies
+            book.available_copies = available_copies
+            book.cover_image = filename
+            db.session.commit()
+            flash("Book updated successfully", "success")
+        except IntegrityError:
+            flash("Book already exists !", "danger")
+        except Exception as e:
+            flash("Failed to update book details", "danger")
+        return redirect("/books/" + str(id) + "/edit")
+    return render_template("books/edit.html", book=book)

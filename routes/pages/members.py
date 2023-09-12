@@ -71,6 +71,7 @@ def update_member(id):
                 # update
                 db.session.commit()
                 flash("Member updated successfully", "success")
+                return redirect("/members/" + str(id) + "/edit")
         except IntegrityError:
             flash(f"Another member with ${email} already exists", "danger")
         except:

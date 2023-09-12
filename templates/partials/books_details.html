@@ -36,6 +36,13 @@
         <!-- copies -->
         <div class="mt-3 text-xl font-semibold text-gray-900 dark:text-white">Copies</div>
         <div class="text-base leading-relaxed text-gray-500 dark:text-gray-400">{{ book.available_copies }} / {{ book.total_copies }}</div>
+        <!-- edit button -->
+        <a
+          class="mt-6 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-blue-700 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-offset-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 lg:text-base"
+          href="/books/{{ book.id }}/edit"
+        >
+          Edit Book
+        </a>
       </div>
     </div>
   </div>

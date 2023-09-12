@@ -1,0 +1,119 @@
+{% extends "base.html" %} {% block title %} Edit Book Details | {{ super() }} {% endblock %} {% block content %}
+<div class="flex justify-center p-4">
+  <form class="flex-grow-1 flex max-w-xl flex-auto flex-col" method="post" enctype="multipart/form-data">
+    <!-- Edit book Details -->
+    <div class="mb-6 text-center">
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Edit Book Details</h1>
+    </div>
+    <!-- Messages -->
+    {% include "partials/flash_messages.html" %}
+    <!-- Title -->
+    <div class="mb-6">
+      <label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Title</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+        value="{{ book.title }}"
+        placeholder="Enter book title"
+        required
+      />
+    </div>
+    <!-- Authors -->
+    <div class="mb-6">
+      <label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Authors</label>
+      <input
+        type="text"
+        id="authors"
+        name="authors"
+        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+        value="{{ book.authors }}"
+        placeholder="Enter book authors"
+        required
+      />
+    </div>
+    <!-- ISBN Code -->
+    <div class="mb-6">
+      <label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">ISBN Code</label>
+      <input
+        type="text"
+        id="isbn_code"
+        name="isbn_code"
+        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+        value="{{ book.isbn }}"
+        placeholder="Enter book ISBN code"
+        required
+      />
+    </div>
+    <!-- Publisher -->
+    <div class="mb-6">
+      <label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Publisher</label>
+      <input
+        type="text"
+        id="publisher"
+        name="publisher"
+        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+        value="{{ book.publisher }}"
+        placeholder="Enter book publisher"
+        required
+      />
+    </div>
+    <!-- Number of pages (num_pages) -->
+    <div class="mb-6">
+      <label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Number of pages</label>
+      <input
+        type="number"
+        id="num_pages"
+        name="num_pages"
+        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+        value="{{ book.num_pages }}"
+        placeholder="Enter number of pages"
+        required
+      />
+    </div>
+    <!-- Total copies of book -->
+    <div class="mb-6">
+      <label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Total copies of book</label>
+      <input
+        type="number"
+        id="total_copies"
+        name="total_copies"
+        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+        placeholder="Enter total copies of book"
+        value="{{ book.total_copies }}"
+        required
+      />
+    </div>
+    <!-- Available copies of book -->
+    <div class="mb-6">
+      <label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Available copies of book [Non editable]</label>
+      <input
+        type="number"
+        id="available_copies"
+        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+        value="{{ book.available_copies }}"
+        readonly
+      />
+    </div>
+    <!-- Upload Cover Image -->
+    <div class="mb-6">
+      <label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Upload Cover Image [Ignore if you dont want to update]</label>
+      <input
+        type="file"
+        id="cover_image"
+        name="cover_image"
+        accept="image/*"
+        class="block w-full rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-900 outline-none focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="min-w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
+    >
+      Submit
+    </button>
+  </form>
+</div>
+{% endblock %}
