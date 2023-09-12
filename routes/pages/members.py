@@ -7,9 +7,11 @@ from middleware import login_required
 
 # Fetch all members from database
 # GET /members
+# HTML or JSON via format query parameter
 @app.get("/members")
 @login_required
 def members():
+    format = request.args.get("format", "html")
     search_type = request.args.get("type", "")
     search_query = request.args.get("query", "")
     members = []
@@ -17,6 +19,8 @@ def members():
         members = Member.query.filter(text(search_type + " LIKE '%" + search_query + "%'")).all()
     else:
         members = Member.query.all()
+    if format == "json":
+        return {"members": [member.to_json() for member in members]}
     return render_template("members/show.html", members=members)
 
 # Create a new member

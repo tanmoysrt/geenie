@@ -65,3 +65,12 @@ class Member(db.Model):
 
   def __repr__(self):
     return f"<Member {self.name}>"
+
+  def to_json(self):
+    return {
+      "id": self.id,
+      "name": self.name,
+      "address": self.address,
+      "phone": self.phone,
+      "email": self.email
+    }
