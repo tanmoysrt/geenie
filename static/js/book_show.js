@@ -79,6 +79,7 @@ function searchMember() {
         $("#book_issue_model_member_id").show();
       } else {
         $("#book_issue_model_member_id").hide();
+        alert("No member found");
       }
       // hide the issue button
       $("#book_issue_model_issue_btn").hide();
