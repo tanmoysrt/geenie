@@ -13,24 +13,18 @@
       <option value="phone">Phone</option>
     </select>
     <input type="text" placeholder="Search" name="query" id="search-query" class="block w-full rounded-full border-0 text-sm text-gray-900 focus:ring-0 lg:text-base" />
-    <button type="submit" class="hidden min-h-full rounded-full bg-blue-700 px-8 font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-300 dark:bg-blue-700 dark:hover:bg-blue-700 dark:focus:ring-blue-800 lg:block">
-      Search
-    </button>
+    <button type="submit" class="focus:ring-blue-300g:block hidden min-h-full rounded-full bg-blue-700 px-8 font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-1">Search</button>
   </form>
 
   <!-- Mobile search button -->
-  <button
-    type="button"
-    onclick="$('#search-form').submit()"
-    class="mt-2 block h-10 w-full rounded-full bg-blue-700 px-8 font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-300 dark:bg-blue-700 dark:hover:bg-blue-700 dark:focus:ring-blue-800 lg:hidden"
-  >
+  <button type="button" onclick="$('#search-form').submit()" class="mt-2 block h-10 w-full rounded-full bg-blue-700 px-8 font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-300 lg:hidden">
     <i class="fa-solid fa-magnifying-glass mr-2"></i>Search Members
   </button>
 
   <!-- END Search bar -->
 
   <!-- Add/Import Member (text button) -->
-  <div class="mt-5 mb-3 flex items-center justify-center">
+  <div class="mb-3 mt-5 flex items-center justify-center">
     <a class="font-bold text-blue-700" href="/members/new">Add Member</a>
   </div>
   <!-- END Add/Import Member -->
@@ -59,13 +53,9 @@
         <td>{{ member.email }}</td>
         <td class="flex space-x-2">
           <!-- Edit button -->
-          <a href="/members/{{ member.id }}/edit" class="rounded-full bg-blue-700 px-3 py-1 text-sm font-normal text-white hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-300 dark:bg-blue-700 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            <i class="fa-solid fa-edit text-sm"></i> Edit
-          </a>
+          <a href="/members/{{ member.id }}/edit" class="rounded-full bg-blue-700 px-3 py-1 text-sm font-normal text-white hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-300"> <i class="fa-solid fa-edit text-sm"></i> Edit </a>
           <!-- Delete button -->
-          <a href="/members/{{ member.id }}/delete" class="rounded-full bg-red-700 px-3 py-1 text-sm font-normal text-white hover:bg-red-800 focus:outline-none focus:ring-1 focus:ring-red-300 dark:bg-red-700 dark:hover:bg-red-700 dark:focus:ring-red-800">
-            <i class="fa-solid fa-trash text-sm"></i> Delete
-          </a>
+          <a href="/members/{{ member.id }}/delete" class="rounded-full bg-red-700 px-3 py-1 text-sm font-normal text-white hover:bg-red-800 focus:outline-none focus:ring-1 focus:ring-red-300"> <i class="fa-solid fa-trash text-sm"></i> Delete </a>
         </td>
       </tr>
       {% endfor %}

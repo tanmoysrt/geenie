@@ -159,3 +159,17 @@ def update_book(id):
             flash("Failed to update book details", "danger")
         return redirect("/books/" + str(id) + "/edit")
     return render_template("books/edit.html", book=book)
+
+# Delete a book
+# GET /books/<id>/delete
+@app.route("/books/<int:id>/delete", methods=["GET"])
+@login_required
+def delete_book(id):
+    try:
+        book = Book.query.get(id)
+        db.session.delete(book)
+        db.session.commit()
+        flash("Book deleted successfully", "success")
+    except Exception as e:
+        flash("Failed to delete book", "danger")
+    return redirect("/books")

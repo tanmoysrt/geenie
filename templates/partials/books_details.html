@@ -1,12 +1,12 @@
 <div class="relative max-h-full w-full max-w-2xl">
   <!-- Modal content -->
-  <div class="relative rounded-lg bg-white shadow dark:bg-gray-700">
+  <div class="relative rounded-lg bg-white shadow">
     <!-- Modal header -->
-    <div class="flex items-start justify-between rounded-t border-b p-4 dark:border-gray-600">
-      <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Book Details</h3>
+    <div class="flex items-start justify-between rounded-t border-b p-4">
+      <h3 class="text-xl font-semibold text-gray-900">Book Details</h3>
       <button
         type="button"
-        class="ml-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
+        class="ml-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 "
         onclick="hideBookDetailsModal()"
       >
         <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -22,26 +22,33 @@
       </div>
       <div class="w-full">
         <!-- title -->
-        <div class="text-xl font-semibold text-gray-900 dark:text-white">{{ book.title }}</div>
-        <div class="text-base leading-relaxed text-gray-500 dark:text-gray-400">{{ book.isbn }}</div>
+        <div class="text-xl font-semibold text-gray-900">{{ book.title }}</div>
+        <div class="text-base leading-relaxed text-gray-500">{{ book.isbn }}</div>
         <!-- authors -->
-        <div class="mt-3 text-xl font-semibold text-gray-900 dark:text-white">Authors</div>
-        <div class="text-base leading-relaxed text-gray-500 dark:text-gray-400">{{ book.authors }}</div>
+        <div class="mt-3 text-xl font-semibold text-gray-900">Authors</div>
+        <div class="text-base leading-relaxed text-gray-500">{{ book.authors }}</div>
         <!-- publisher -->
-        <div class="mt-3 text-xl font-semibold text-gray-900 dark:text-white">Publisher</div>
-        <div class="text-base leading-relaxed text-gray-500 dark:text-gray-400">{{ book.publisher }}</div>
+        <div class="mt-3 text-xl font-semibold text-gray-900">Publisher</div>
+        <div class="text-base leading-relaxed text-gray-500">{{ book.publisher }}</div>
         <!-- pages -->
-        <div class="mt-3 text-xl font-semibold text-gray-900 dark:text-white">Pages</div>
-        <div class="text-base leading-relaxed text-gray-500 dark:text-gray-400">{{ book.num_pages }} pages</div>
+        <div class="mt-3 text-xl font-semibold text-gray-900">Pages</div>
+        <div class="text-base leading-relaxed text-gray-500">{{ book.num_pages }} pages</div>
         <!-- copies -->
-        <div class="mt-3 text-xl font-semibold text-gray-900 dark:text-white">Copies</div>
-        <div class="text-base leading-relaxed text-gray-500 dark:text-gray-400">{{ book.available_copies }} / {{ book.total_copies }}</div>
+        <div class="mt-3 text-xl font-semibold text-gray-900">Copies</div>
+        <div class="text-base leading-relaxed text-gray-500">{{ book.available_copies }} / {{ book.total_copies }}</div>
         <!-- edit button -->
         <a
-          class="mt-6 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-blue-700 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-offset-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 lg:text-base"
+          class="g:text-base mt-6 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-blue-700 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-offset-2"
           href="/books/{{ book.id }}/edit"
         >
           Edit Book
+        </a>
+        <!-- delete button -->
+        <a
+          class="mt-3 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-red-700 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 focus:ring-offset-2 lg:text-base"
+          href="/books/{{ book.id }}/delete"
+        >
+          Delete Book
         </a>
       </div>
     </div>

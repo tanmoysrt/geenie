@@ -12,17 +12,11 @@
       <option value="publisher">Publisher</option>
     </select>
     <input type="text" placeholder="Search" name="query" id="search-query" class="block w-full rounded-full border-0 text-sm text-gray-900 focus:ring-0 lg:text-base" />
-    <button type="submit" class="hidden min-h-full rounded-full bg-blue-700 px-8 font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-300 dark:bg-blue-700 dark:hover:bg-blue-700 dark:focus:ring-blue-800 lg:block">
-      Search
-    </button>
+    <button type="submit" class="focus:ring-blue-300g:block hidden min-h-full rounded-full bg-blue-700 px-8 font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-1">Search</button>
   </form>
 
   <!-- Mobile search button -->
-  <button
-    type="button"
-    onclick="$('#search-form').submit()"
-    class="mt-2 block h-10 w-full rounded-full bg-blue-700 px-8 font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-300 dark:bg-blue-700 dark:hover:bg-blue-700 dark:focus:ring-blue-800 lg:hidden"
-  >
+  <button type="button" onclick="$('#search-form').submit()" class="mt-2 block h-10 w-full rounded-full bg-blue-700 px-8 font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-300 lg:hidden">
     <i class="fa-solid fa-magnifying-glass mr-2"></i>Search Books
   </button>
 
@@ -33,7 +27,7 @@
 
   <!-- Spinner -->
   <div class="my-4 flex flex-row items-center justify-center" id="loading-books-spinner">
-    <svg aria-hidden="true" class="mr-2 h-6 w-6 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg aria-hidden="true" class="mr-2 h-6 w-6 animate-spin fill-blue-600 text-gray-200" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
         fill="currentColor"
@@ -43,27 +37,23 @@
         fill="currentFill"
       />
     </svg>
-    <div class="text-gray-500 dark:text-gray-400">Loading more books...</div>
+    <div class="text-gray-500">Loading more books...</div>
   </div>
 
   <!-- No more books found  -->
   <div class="my-4 flex flex-row items-center justify-center" id="no-more-books" style="display: none">
-    <div class="text-gray-500 dark:text-gray-400">No more books found.</div>
+    <div class="text-gray-500">No more books found.</div>
   </div>
 
   <!-- Book details modal -->
   <div id="book_details_model" class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full overflow-y-auto overflow-x-hidden p-4 md:inset-0">
     <div class="relative max-h-full w-full max-w-2xl">
       <!-- Modal content -->
-      <div class="relative rounded-lg bg-white shadow dark:bg-gray-700">
+      <div class="relative rounded-lg bg-white shadow">
         <!-- Modal header -->
-        <div class="flex items-start justify-between rounded-t border-b p-4 dark:border-gray-600">
-          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Book Details</h3>
-          <button
-            type="button"
-            class="ml-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
-            onclick="hideBookDetailsModal()"
-          >
+        <div class="flex items-start justify-between rounded-t border-b p-4">
+          <h3 class="text-xl font-semibold text-gray-900">Book Details</h3>
+          <button type="button" class="ml-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900" onclick="hideBookDetailsModal()">
             <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
             </svg>
@@ -77,17 +67,17 @@
           </div>
           <div class="w-full">
             <!-- title -->
-            <div class="text-xl font-semibold text-gray-900 dark:text-white" id="book_details_model_title"></div>
-            <div class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="book_details_model_isbn"></div>
+            <div class="text-xl font-semibold text-gray-900" id="book_details_model_title"></div>
+            <div class="text-base leading-relaxed text-gray-500" id="book_details_model_isbn"></div>
             <!-- authors -->
-            <div class="mt-3 text-xl font-semibold text-gray-900 dark:text-white">Authors</div>
-            <div class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="book_details_model_authors"></div>
+            <div class="mt-3 text-xl font-semibold text-gray-900">Authors</div>
+            <div class="text-base leading-relaxed text-gray-500" id="book_details_model_authors"></div>
             <!-- publisher -->
-            <div class="mt-3 text-xl font-semibold text-gray-900 dark:text-white">Publisher</div>
-            <div class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="book_details_model_publisher"></div>
+            <div class="mt-3 text-xl font-semibold text-gray-900">Publisher</div>
+            <div class="text-base leading-relaxed text-gray-500" id="book_details_model_publisher"></div>
             <!-- pages -->
-            <div class="mt-3 text-xl font-semibold text-gray-900 dark:text-white">Pages</div>
-            <div class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="book_details_model_pages"></div>
+            <div class="mt-3 text-xl font-semibold text-gray-900">Pages</div>
+            <div class="text-base leading-relaxed text-gray-500" id="book_details_model_pages"></div>
           </div>
         </div>
       </div>
