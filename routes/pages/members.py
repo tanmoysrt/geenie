@@ -1,7 +1,7 @@
 from sqlalchemy import text
 from sqlalchemy.exc import IntegrityError
 from app import app, db
-from flask import render_template, request, flash
+from flask import render_template, request, flash, redirect
 from models import Member
 from middleware import login_required
 
@@ -42,3 +42,20 @@ def create_member():
             flash("Member could not be created", "danger")
     
     return render_template("members/new.html")
+
+# Delete a member
+# GET /members/<id>/delete
+@app.get("/members/<int:id>/delete")
+@login_required
+def delete_member(id):
+    member = Member.query.get(id)
+    if member:
+        try:
+            db.session.delete(member)
+            db.session.commit()
+            flash("Member deleted successfully", "success")
+        except:
+            flash("Member could not be deleted", "danger")
+    else:
+        flash("Member not found", "danger")
+    return redirect("/members")
