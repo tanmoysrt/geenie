@@ -57,13 +57,15 @@
         <td>{{ member.name }}</td>
         <td>{{ member.phone }}</td>
         <td>{{ member.email }}</td>
-        <td>
+        <td class="flex space-x-2">
+          <!-- Edit button -->
+          <a href="/members/{{ member.id }}/edit" class="rounded-full bg-blue-700 px-3 py-1 text-sm font-normal text-white hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-300 dark:bg-blue-700 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <i class="fa-solid fa-edit text-sm"></i> Edit
+          </a>
           <!-- Delete button -->
-          <form method="get" action="/members/{{ member.id }}/delete" class="inline">
-            <button type="submit" class="rounded-full bg-red-700 px-3 py-1 text-sm font-normal text-white hover:bg-red-800 focus:outline-none focus:ring-1 focus:ring-red-300 dark:bg-red-700 dark:hover:bg-red-700 dark:focus:ring-red-800">
-              <i class="fa-solid fa-trash text-sm"></i> Delete
-            </button>
-          </form>
+          <a href="/members/{{ member.id }}/delete" class="rounded-full bg-red-700 px-3 py-1 text-sm font-normal text-white hover:bg-red-800 focus:outline-none focus:ring-1 focus:ring-red-300 dark:bg-red-700 dark:hover:bg-red-700 dark:focus:ring-red-800">
+            <i class="fa-solid fa-trash text-sm"></i> Delete
+          </a>
         </td>
       </tr>
       {% endfor %}

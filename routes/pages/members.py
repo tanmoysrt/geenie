@@ -43,6 +43,37 @@ def create_member():
     
     return render_template("members/new.html")
 
+# Update a member
+# GET /members/<id>/edit
+# POST /members/<id>/edit
+@app.route("/members/<int:id>/edit", methods=["GET", "POST"])
+@login_required
+def update_member(id):
+    member = Member.query.get(id)
+    if request.method == "POST":
+        name = request.form["name"]
+        address = request.form["address"]
+        phone = request.form["phone"]
+        email = request.form["email"]
+
+        try:
+            if name == "" or address == "" or phone == "" or email == "":
+                flash("Please fill all the fields", "danger")
+            else:
+                member.name = name
+                member.address = address
+                member.phone = phone
+                member.email = email
+                # update
+                db.session.commit()
+                flash("Member updated successfully", "success")
+        except IntegrityError:
+            flash(f"Another member with ${email} already exists", "danger")
+        except:
+            flash("Member could not be updated", "danger")
+    
+    return render_template("members/edit.html", member=member)
+
 # Delete a member
 # GET /members/<id>/delete
 @app.get("/members/<int:id>/delete")

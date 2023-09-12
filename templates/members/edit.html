@@ -1,0 +1,69 @@
+{% extends "base.html" %} {% block title %} Update Member | {{ super() }} {% endblock %} {% block content %}
+<div class="flex justify-center p-4">
+  <form class="flex-grow-1 flex max-w-xl flex-auto flex-col" method="post" enctype="multipart/form-data">
+    <!-- Update member title -->
+    <div class="mb-6 text-center">
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Update Member Details</h1>
+    </div>
+    <!-- Messages -->
+    {% include "partials/flash_messages.html" %}
+    <!-- Name -->
+    <div class="mb-6">
+      <label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+        value="{{ member.name }}"
+        placeholder="Enter name of the member"
+        required
+      />
+    </div>
+    <!-- Phone no -->
+    <div class="mb-6">
+      <label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Phone No</label>
+      <input
+        type="number"
+        id="phone"
+        name="phone"
+        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+        value="{{ member.phone }}"
+        placeholder="Enter phone no of member"
+        required
+      />
+    </div>
+    <!-- E-mail ID -->
+    <div class="mb-6">
+      <label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">E-mail ID</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+        value="{{ member.email }}"
+        placeholder="Enter e-mail id of member"
+        required
+      />
+    </div>
+    <!-- Address -->
+    <div class="mb-6">
+      <label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Address</label>
+      <textarea
+        type="text"
+        id="address"
+        name="address"
+        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+        placeholder="Enter address of member"
+        required
+      >{{ member.address }}</textarea>
+    </div>
+    <button
+      type="submit"
+      class="min-w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
+    >
+      Submit
+    </button>
+  </form>
+</div>
+{% endblock %}
