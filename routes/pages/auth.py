@@ -14,9 +14,8 @@ def login():
         username = request.form.get("username")
         password = request.form.get("password")
         # Check if username exists
-        user = db.session.execute(text("SELECT * FROM user WHERE username = :username"), {"username": username}).first()
+        user = User.query.filter_by(username=username).first()
         if user:
-            user = User(*user)
             if user.verify_password(password):
                 # Generate random session token
                 token = helpers.generate_jwt(user.id)
