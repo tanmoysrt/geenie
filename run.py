@@ -20,6 +20,7 @@ def ajax_request_check():
 # Import routes
 import routes.pages.auth
 import routes.pages.books
+import routes.pages.members
 import routes.api.books
 
 # Default route / to /books

@@ -48,3 +48,20 @@ class Book(db.Model):
 
   def __repr__(self):
     return f"<Book {self.title}>"
+  
+class Member(db.Model):
+  id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+  name = db.Column(db.String(80), nullable=False)
+  address = db.Column(db.String(200), nullable=False)
+  phone = db.Column(db.String(80), nullable=False)
+  email = db.Column(db.String(80), nullable=False, unique=True)
+
+  def __init__(self, id, name, address, phone, email):
+    self.id = id
+    self.name = name
+    self.address = address
+    self.phone = phone
+    self.email = email
+
+  def __repr__(self):
+    return f"<Member {self.name}>"
