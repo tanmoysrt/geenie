@@ -12,20 +12,16 @@
         <a class="font-normal text-gray-700">ISBN: {{ book.isbn }}</a>
       </div>
       {% if book.available_copies == 0 %}
-      <button
-        class="mb-2 w-full rounded-lg border-2 border-red-200 bg-white py-2 text-sm font-medium text-red-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 lg:text-base"
-        disabled
-      >
-        Not Available
-      </button>
+      <button class="mb-2 w-full rounded-lg border-2 border-red-200 bg-white py-2 text-sm font-medium text-red-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 lg:text-base" disabled>Not Available</button>
       {% else %}
       <button
         class="mb-2 w-full rounded-lg border-2 border-gray-200 bg-white py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 lg:text-base"
+        onclick="openIssueBookModal('{{ book.id }}', '{{ book.available_copies }}')"
       >
         Issue book
       </button>
       {% endif %}
-      <button class="g:text-base w-full rounded-lg bg-blue-700 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300" onclick="viewBookDetails('{{ book.id }}')">View Details</button>
+      <button class="w-full rounded-lg bg-blue-700 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 lg:text-base" onclick="viewBookDetails('{{ book.id }}')">View Details</button>
     </div>
   </div>
 </div>

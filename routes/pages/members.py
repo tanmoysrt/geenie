@@ -20,7 +20,7 @@ def members():
     else:
         members = Member.query.all()
     if format == "json":
-        return {"members": [member.to_json() for member in members]}
+        return [member.to_json() for member in members]
     return render_template("members/show.html", members=members)
 
 # Create a new member

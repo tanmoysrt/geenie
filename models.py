@@ -1,7 +1,6 @@
 from app import db, app
 import bcrypt
 from datetime import datetime
-import math
 
 # User model for authentication
 class User(db.Model):
@@ -130,7 +129,7 @@ class Transaction(db.Model):
       return self.charges_paid
     
     # Calculate no of days from issue date to current date
-    days = (datetime.now() - self.issue_date).days
+    days = (datetime.now().date() - self.issue_date).days
     # Calculate charges
     charges = 0
     # Normal rent charges
@@ -143,7 +142,7 @@ class Transaction(db.Model):
   def return_book(self) -> bool:
     try:
       self.is_returned = True
-      self.return_date = datetime.now()
+      self.return_date = datetime.now().date()
       self.charges_paid = self.calculate_charges()
       db.session.commit()
       return True

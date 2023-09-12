@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 import os
 
@@ -24,7 +23,3 @@ app.secret_key = os.getenv("SECRET_KEY")
 # Set up database
 db = SQLAlchemy()
 db.init_app(app)
-
-Session = None
-with app.app_context():
-    Session = sessionmaker(bind=db.engine)

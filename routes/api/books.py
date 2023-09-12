@@ -1,4 +1,4 @@
-from app import app, db, Session
+from app import app, db
 from flask import request, jsonify
 from models import Book, Member, Transaction
 import helpers
@@ -53,7 +53,6 @@ def import_books():
 @app.route("/books/issue", methods=["POST"])
 @login_required
 def issue_book():
-    session = Session()
     try:
         member_id = int(request.form["member_id"])
         book_id = int(request.form["book_id"])
@@ -73,6 +72,10 @@ def issue_book():
         if book.available_copies == 0:
             raise Exception("No copy of the book is available")
         
+        # Check if count is greater than available copies
+        if count > book.available_copies:
+            raise Exception(f"Only {book.available_copies} copies of the book are available")
+        
         # Check if member has outstanding charges more than the limit
         outstanding_charges = member.get_outstanding_charges()
         if outstanding_charges > app.config["OUTSTANDING_DEBT_LIMIT"]:
@@ -81,7 +84,7 @@ def issue_book():
             raise Exception(f"{member.name} has total {outstanding_charges_rs} Rs more than the limit of {outstanding_charges_limit_rs} Rs")
         
         # Update quantity of book
-        book.available_copies -= count
+        book.available_copies = book.available_copies - count
         
         # Insert transaction details into database
         transaction = Transaction(
@@ -95,13 +98,12 @@ def issue_book():
             charges_paid=0
         )
 
-        session.add(transaction)
-        session.commit()
+        db.session.add(transaction)
+        db.session.commit()
 
         return jsonify({
             "message": "Book issued successfully",
             "transaction_id": transaction.id
         }), 200
     except Exception as e:
-        session.close()
         return jsonify({"message": str(e)}), 500
