@@ -16,7 +16,7 @@
         class=" mb-2 w-full rounded-lg border-2 border-gray-200 bg-white py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 lg:text-base" onclick="importBook('{{ book.title|replace("'", "\\'") }}', '{{ book.isbn }}', '{{ book.authors|replace("'", "\\'") }}', '{{ book.publisher|replace("'", "\\'") }}', '{{ book.num_pages }}', '{{ book.cover_image }}')">
         <i class="fa-solid fa-spinner animate-spin mr-2" style="display: none;"></i>Import Book
       </button>
-      <button class="w-full rounded-lg bg-blue-700 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 g:text-base" onclick="showBookDetailsModal('{{ book.title|replace("'", "\\'") }}', '{{ book.isbn }}', '{{ book.authors|replace("'", "\\'") }}', '{{ book.publisher|replace("'", "\\'") }}', '{{ book.num_pages }}', '{{ book.cover_image }}')">
+      <button class="w-full rounded-lg bg-blue-700 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 lg:text-base" onclick="showBookDetailsModal('{{ book.title|replace("'", "\\'") }}', '{{ book.isbn }}', '{{ book.authors|replace("'", "\\'") }}', '{{ book.publisher|replace("'", "\\'") }}', '{{ book.num_pages }}', '{{ book.cover_image }}')">
         View Details
       </button>
     </div>

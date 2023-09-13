@@ -4,7 +4,6 @@ from models import Book, Member, Transaction
 import helpers
 from middleware import login_required
 import uuid
-import math
 import datetime
 
 # POST /books/import
@@ -79,8 +78,8 @@ def issue_book():
         # Check if member has outstanding charges more than the limit
         outstanding_charges = member.get_outstanding_charges()
         if outstanding_charges > app.config["OUTSTANDING_DEBT_LIMIT"]:
-            outstanding_charges_rs = math.floor(outstanding_charges / 100)
-            outstanding_charges_limit_rs = math.floor(app.config["OUTSTANDING_DEBT_LIMIT"] / 100)
+            outstanding_charges_rs = (outstanding_charges / 100)
+            outstanding_charges_limit_rs = (app.config["OUTSTANDING_DEBT_LIMIT"] / 100)
             raise Exception(f"{member.name} has total {outstanding_charges_rs} Rs more than the limit of {outstanding_charges_limit_rs} Rs")
         
         # Update quantity of book

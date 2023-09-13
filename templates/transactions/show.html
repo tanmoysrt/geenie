@@ -1,0 +1,242 @@
+{% extends "base.html" %} {% block title %} Search Transactions | {{ super() }} {% endblock %} {% block stylesheets %}
+<link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css" rel="stylesheet" />
+{% endblock %} {% block content %}
+<div class="p-4">
+  <!-- Search bar -->
+  <form method="get" class="border-dark-subtle mb-2 flex w-full rounded-full border-2 border-solid border-blue-700 p-1 lg:mb-6" id="search-form">
+    <!-- Dropdown -->
+    <select class="block rounded-full border-0 px-4 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-700 sm:leading-6 lg:text-base" name="type" id="search-type">
+      <!-- ... -->
+      <option value="transaction_id" selected>Receipt ID</option>
+      <option value="book_name">Book Name</option>
+      <option value="book_isbn">ISBN</option>
+      <option value="member_id">Member ID</option>
+      <option value="member_name">Member Name</option>
+      <option value="member_email">Email</option>
+      <option value="member_phone">Phone No</option>
+    </select>
+    <input type="text" placeholder="Search" name="query" id="search-query" class="block w-full rounded-full border-0 text-sm text-gray-900 focus:ring-0 lg:text-base" />
+    <button type="submit" class="focus:ring-blue-300g:block hidden min-h-full rounded-full bg-blue-700 px-8 font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-1">Search</button>
+  </form>
+
+  <!-- Mobile search button -->
+  <button type="button" onclick="$('#search-form').submit()" class="mb-4 mt-2 block h-10 w-full rounded-full bg-blue-700 px-8 font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-300 lg:hidden">
+    <i class="fa-solid fa-magnifying-glass mr-2"></i>Search Transactions
+  </button>
+
+  <!-- END Search bar -->
+
+  <!-- Members list -->
+  <table id="members_list_table" class="display" style="width: 100%">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Book Name</th>
+        <th>Book ISBN</th>
+        <th>Count</th>
+        <th>Member</th>
+        <th>Issue Date</th>
+        <th>Return Date</th>
+        <th>Charges</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for transaction in transactions %}
+      <tr>
+        <td>{{ transaction.id }}</td>
+        <td>{{ transaction.book.title }}</td>
+        <td>{{ transaction.book.isbn }}</td>
+        <td>{{ transaction.count }}</td>
+        <td>{{ transaction.member.name }} [ID {{ transaction.member.id }}]</td>
+        <td>{{ transaction.issue_date }}</td>
+        <td>{% if transaction.is_returned %} {{ transaction.return_date }} {% else %} -- {% endif %}</td>
+        <td>{% if transaction.is_returned %} {{ transaction.charges_paid }} {% else %} -- {% endif %}</td>
+        <td class="flex space-x-2">
+          {% if transaction.is_returned %}
+          <!-- Already returned Print Receipt -->
+          <button class="font-norPmal rounded-full bg-green-600 px-3 py-1 text-sm text-white hover:bg-green-700 focus:outline-none focus:ring-1 focus:ring-green-200">Already Retuned</button>
+          {% else %}
+          <!-- `Return Book` button -->
+          <button class="rounded-full bg-blue-700 px-3 py-1 text-sm font-normal text-white hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-300" onclick="initiateReturnBook('{{ transaction.id }}')">Return Book</button>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr>
+        <th>ID</th>
+        <th>Book Name</th>
+        <th>Book ISBN</th>
+        <th>Count</th>
+        <th>Member</th>
+        <th>Issue Date</th>
+        <th>Return Date</th>
+        <th>Charges</th>
+        <th>Actions</th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<!-- Modal -->
+<div id="transaction_return_modal" class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full overflow-y-auto overflow-x-hidden p-4 md:inset-0">
+  <div class="relative max-h-full w-full max-w-2xl">
+    <!-- Modal content -->
+    <div class="relative rounded-lg bg-white shadow">
+      <!-- Modal header -->
+      <div class="flex items-start justify-between rounded-t border-b p-4">
+        <h3 class="text-xl font-semibold text-gray-900">Return Book</h3>
+        <button type="button" class="ml-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900" onclick="hideTransactionDetailsModal()">
+          <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+      <!-- Modal body -->
+      <div class="flex flex-col space-y-6 p-6">
+        <div class="relative w-full overflow-x-auto">
+          <!-- Table -->
+          <table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+            <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" class="px-6 py-3">Charge Type</th>
+                <th scope="col" class="px-6 py-3">Days</th>
+                <th scope="col" class="px-6 py-3">Per Day Charge [Rs]</th>
+                <th scope="col" class="px-6 py-3">Total Charges [Rs]</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b bg-white dark:border-gray-700 dark:bg-gray-800">
+                <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">Normal Fee</th>
+                <td class="px-6 py-4" id="transaction_return_modal_normal_days"></td>
+                <td class="px-6 py-4" id="transaction_return_modal_normal_per_day_charge"></td>
+                <td class="px-6 py-4" id="transaction_return_modal_normal_total_charge"></td>
+              </tr>
+              <tr class="border-b bg-white dark:border-gray-700 dark:bg-gray-800">
+                <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">Late Fee</th>
+                <td class="px-6 py-4" id="transaction_return_modal_late_days"></td>
+                <td class="px-6 py-4" id="transaction_return_modal_late_per_day_charge"></td>
+                <td class="px-6 py-4" id="transaction_return_modal_late_total_charge"></td>
+              </tr>
+              <tr class="border-b bg-white dark:border-gray-700 dark:bg-gray-800">
+                <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"></th>
+                <td class="px-6 py-4"></td>
+                <td class="px-6 py-4">Total Charge</td>
+                <td class="px-6 py-4" id="transaction_return_total_charge"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Return button -->
+        <button class="mt-5 w-full rounded-lg bg-blue-700 py-2 text-center text-sm font-semibold text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 lg:text-base" onclick="returnBook()">Confirm Return</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %} {% block javascript %}
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+<style></style>
+<script>
+  let selected_transaction_id = null;
+  let transaction_return_modal = new Modal(document.getElementById("transaction_return_modal"));
+  $(document).ready(function () {
+    transaction_return_modal.hide();
+    $("#members_list_table").DataTable({
+      responsive: true,
+      searching: false,
+    });
+  });
+
+  window.addEventListener(
+    "load",
+    function () {
+      checkQueryParams();
+    },
+    false,
+  );
+
+  // From query params find info about search and fill the values
+  function checkQueryParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const query = urlParams.get("query");
+    const type = urlParams.get("type");
+    if (query && type) {
+      searchUsed = true;
+      searchBasedOn = type;
+      searchQuery = query;
+      $("#search-query").val(query);
+      $("#search-type").val(type);
+    } else {
+      searchUsed = false;
+    }
+  }
+
+  // Show transaction details modal
+  function showTransactionDetailsModal() {
+    transaction_return_modal.show();
+  }
+
+  // Hide transaction details modal
+  function hideTransactionDetailsModal() {
+    transaction_return_modal.hide();
+  }
+
+  //   Initiate return book
+  function initiateReturnBook(transaction_id) {
+    $.ajax({
+      url: `/transactions/${transaction_id}/return/details`,
+      type: "GET",
+      success: function (data) {
+        $("#transaction_return_modal_normal_days").html(data.charge_details.normal_days);
+        $("#transaction_return_modal_normal_per_day_charge").html(data.charge_details.normal_charge / 100);
+        $("#transaction_return_modal_normal_total_charge").html(data.charge_details.normal_total_charge / 100);
+        $("#transaction_return_modal_late_days").html(data.charge_details.late_days);
+        $("#transaction_return_modal_late_per_day_charge").html(data.charge_details.late_charge / 100);
+        $("#transaction_return_modal_late_total_charge").html(data.charge_details.late_total_charge / 100);
+        $("#transaction_return_total_charge").html(data.total_charges / 100);
+        selected_transaction_id = transaction_id;
+        showTransactionDetailsModal();
+      },
+      error: function (data) {
+        hideTransactionDetailsModal();
+      },
+    });
+  }
+
+  // Return book
+  function returnBook() {
+    $.ajax({
+      url: `/transactions/${selected_transaction_id}/return`,
+      type: "POST",
+      success: function (data) {
+        hideTransactionDetailsModal();
+        Swal.fire({
+          title: "Success",
+          text: data.message,
+          icon: "success",
+          confirmButtonText: "Done !",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        });
+      },
+      error: function (xhr) {
+        const error = xhr.responseJSON;
+        Swal.fire({
+          title: "Error",
+          text: error.message || "Unknown error occured.",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
+      },
+    });
+  }
+</script>
+{% endblock %}

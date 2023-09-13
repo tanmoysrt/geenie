@@ -10,6 +10,7 @@ from seed import db_seed
 with app.app_context():
     db.create_all()
 
+
 # Register is_ajax middleware
 @app.before_request
 def ajax_request_check():
@@ -18,14 +19,18 @@ def ajax_request_check():
     else:
         request.is_ajax = False
 
+
 # Import routes
 import routes.pages.auth
 import routes.pages.books
 import routes.pages.members
+import routes.pages.transactions
 import routes.api.books
+import routes.api.transactions
 
 # Seed database
 db_seed()
+
 
 # Default route / to /books
 @app.route("/")
