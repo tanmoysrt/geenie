@@ -6,6 +6,7 @@ $(document).ready(function () {
     responsive: true,
     searching: false,
     order: [[0, "desc"]],
+    columnDefs: [{ width: "20%", targets: 1 }],
   });
 });
 
