@@ -75,8 +75,10 @@ Check out the live demo here - https://geenie.tanmoy.online/
 ![Add New Member](screenshots/add_member.png)
 
 - **Transaction History**
+![Transaction History](screenshots/transaction_history.png)
 
 - **Return Book**
+![Return Book](screenshots/return_book.png)
 
 ### 📝 Disclaimer
-This project is part of Frappe Dev Hiring Challenge. You can find more details in the [page](https://frappe.io/dev-hiring-test)
+This project is part of Frappe Dev Hiring Test. You can find more details in the [page](https://frappe.io/dev-hiring-test)
