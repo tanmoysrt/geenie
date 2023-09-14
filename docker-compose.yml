@@ -9,6 +9,7 @@ services:
     environment:
       - DATABASE_URI=sqlite:///project.db
       - SECRET_KEY=secret12435
+      - JWT_SECRET_KEY=b6g6ds78ew8
       - PORT=5000
     volumes:
       - db-data:/app/instance
