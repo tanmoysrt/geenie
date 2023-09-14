@@ -17,7 +17,7 @@
       <option value="member_phone">Phone No</option>
     </select>
     <input type="text" placeholder="Search" name="query" id="search-query" class="block w-full rounded-full border-0 text-sm text-gray-900 focus:ring-0 lg:text-base" />
-    <button type="submit" class="focus:ring-blue-300 lg:block hidden min-h-full rounded-full bg-blue-700 px-8 font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-1">Search</button>
+    <button type="submit" class="hidden min-h-full rounded-full bg-blue-700 px-8 font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-300 lg:block">Search</button>
   </form>
 
   <!-- Mobile search button -->
@@ -49,7 +49,7 @@
         <td>{{ transaction.book.title }}</td>
         <td>{{ transaction.book.isbn }}</td>
         <td>{{ transaction.count }}</td>
-        <td>{{ transaction.member.name }} [ID {{ transaction.member.id }}]</td>
+        <td><a href="/members?type=email&query={{ transaction.member.email }}" target="_blank" class="text-blue-600 underline">{{ transaction.member.name }} [ID {{ transaction.member.id }}]</a></td>
         <td>{{ transaction.issue_date }}</td>
         <td>{% if transaction.is_returned %} {{ transaction.return_date }} {% else %} -- {% endif %}</td>
         <td>{% if transaction.is_returned %} {{ transaction.charges_paid }} {% else %} -- {% endif %}</td>
