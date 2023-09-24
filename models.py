@@ -182,11 +182,11 @@ class Transaction(db.Model):
         try:
             if self.is_returned:
                 return True
-            self.is_returned = True
             self.return_date = datetime.now().date()
             self.charges_paid = self.calculate_charges()
             book = Book.query.get(self.book_id)
             book.available_copies += self.count
+            self.is_returned = True
             db.session.commit()
             return True
         except Exception as e:
