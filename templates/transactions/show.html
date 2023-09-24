@@ -52,7 +52,7 @@
         <td><a href="/members?type=email&query={{ transaction.member.email }}" target="_blank" class="text-blue-600 underline">{{ transaction.member.name }} [ID {{ transaction.member.id }}]</a></td>
         <td>{{ transaction.issue_date }}</td>
         <td>{% if transaction.is_returned %} {{ transaction.return_date }} {% else %} -- {% endif %}</td>
-        <td>{% if transaction.is_returned %} {{ transaction.charges_paid }} {% else %} -- {% endif %}</td>
+        <td>{% if transaction.is_returned %} {{ transaction.charges_paid / 100 }} {% else %} -- {% endif %}</td>
         <td class="flex space-x-2">
           {% if transaction.is_returned %}
           <!-- Already returned Print Receipt -->
