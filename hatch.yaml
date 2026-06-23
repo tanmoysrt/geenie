@@ -1,0 +1,40 @@
+# hatch.yaml — how Hatch builds a sandbox for Geenie (Flask + SQLite).
+# Setup runs once on first boot; the web service is kept up across restarts.
+
+setup:
+  - name: venv
+    title: Creating Python 3.12 virtualenv
+    run: |
+      set -euo pipefail
+      cd /home/hatch/project
+      # uv fetches CPython 3.12 even though it isn't the image default.
+      uv venv --python 3.12 .venv
+      uv pip install --python .venv/bin/python -r requirements.txt
+
+  - name: env
+    title: Preparing environment
+    run: |
+      set -euo pipefail
+      cd /home/hatch/project
+      [ -f .env ] || cp .env.example .env
+
+  - name: shell
+    title: Auto-activating virtualenv in the terminal
+    run: |
+      set -euo pipefail
+      line='[ -f /home/hatch/project/.venv/bin/activate ] && . /home/hatch/project/.venv/bin/activate'
+      grep -qF "$line" "$HOME/.bashrc" 2>/dev/null || \
+        printf '\n# Hatch: activate the project virtualenv on shell start\n%s\n' "$line" >> "$HOME/.bashrc"
+
+services:
+  # The dev server reads PORT (defaults to 5000); WorkingDirectory is the repo root.
+  - name: web
+    run: .venv/bin/python run.py
+
+ports:
+  - port: 5000
+    name: Geenie
+    primary: true          # the preview port the workspace opens by default
+    expose: true           # reachable at app-<id>.… as well as port5000-<id>.…
+    prefix: app
+    visibility: public
